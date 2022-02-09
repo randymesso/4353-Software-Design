@@ -1,7 +1,17 @@
 *
 {
-	font-family: gothic;
-	background-color: CornflowerBlue;
+	font-family: "Century Gothic";
+}
+
+#bg
+{
+	background-image:linear-gradient(red,orange);
+	position: fixed; 
+	top: 0; 
+	left: 0; 
+	
+	min-width: 100%;
+	min-height: 100%;
 }
 
 input[type="submit"], input[type="button"]
@@ -11,21 +21,35 @@ input[type="submit"], input[type="button"]
 	font-size:15pt;
 	margin: auto;
 	
-	background-color:DarkCyan;
+	background-color:cyan;
 	box-shadow: 10px 10px 5px;
 }
 
 input[type="text"]
 {
-	background-color:lightblue;
+	background-color:white;
 }
 
 body
 {
+	justify-content: center;
+	padding: 10px;
+}
+
+nav
+{
+	justify-content:center;
+}
+
+nav a
+{
+	padding: 20px;
+	border: 2px solid black;
+	background-color: white;
 }
 
 div
 {
 	padding: 10px;
-	color:cyan;
+	color:white;
 }
