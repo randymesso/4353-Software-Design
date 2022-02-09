@@ -38,6 +38,8 @@ body
 
 nav
 {
+	min-height: 20%;
+	background-color: white;
 	justify-content:center;
 }
 
@@ -46,6 +48,7 @@ nav a
 	padding: 20px;
 	border: 2px solid black;
 	background-color: white;
+	text-decoration: none;
 }
 
 div
