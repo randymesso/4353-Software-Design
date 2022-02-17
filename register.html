@@ -1,20 +1,35 @@
 <!DOCTYPE HTML>
+
+<!-- -->
+
 <html>
 	<title>Registration</title>    
     <link rel="stylesheet" href="style.css">
-	<script src="function.js"></script> 
 	
+	<script defer src="function.js"></script> 
+	<script defer src="register.js"></script> 	
 	
 	<div id="bg">
-	
-		<nav>
+		
+		<!-- Logged in user-->
+		<div id = "profile_header">
+			<p id = "logged_in_user" ></p>
+		</div>
+		
+		<!-- Navigation Bar -->
+		<nav id = "no_log_nav">
 			<a href = "front_layout.html">Home Page</a>
 			<a href = "login.html">Login</a>
 			<a href = "register.html">Register</a>
 		</nav>
-	
 		
-		<form>
+		<nav id = "logged_nav">
+			<a href = "front_layout.html">Home Page</a>
+			<a href = "profile.html">Profile Management</a>
+			<a href = "register.html">Fuel Quote History</a>
+		</nav>
+		
+		<form id="register-form">
 			<body>
 				<header>
 					<h2>Registration</h2>
@@ -22,18 +37,19 @@
 	
 				<div>
 					<label>Username:</label>
-					<input type="text" name = "username" required >
+					<input type="text" name = "username" class="register-form-field" required >
 				</div>
 		
 				<div>
 					<label>Password:</label>
-					<input type="password" name = "password" required>
+					<input type="password" name = "password" class="register-form-field" required>
 				</div>
 		
 				<div>
-					<input type="submit" value = "Register">
+					<input type="submit" value = "Register" id="register-form-submit">
 				</div>
 			</body>
 		</form>
+		
 	</div>
 </html>
