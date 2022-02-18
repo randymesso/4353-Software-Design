@@ -3,7 +3,6 @@
 <!-- -->
 
 <html>
-	<!-- the start of the login portal of the code segment-->
 	<title>Login Portal</title>    
     <link rel="stylesheet" href="style.css">
 	
@@ -24,6 +23,12 @@
 			<a href = "register.html">Register</a>
 		</nav>
 		
+		<nav id = "logged_nav">
+			<a href = "front_layout.html">Home Page</a>
+			<a href = "profile.html">Profile Management</a>
+			<a href = "register.html">Fuel Quote History</a>
+		</nav>
+		
 		<!-- Main login form -->
 		<form id="login-form">
 			<body>
@@ -32,13 +37,11 @@
 				</header>
 	
 				<div>
-					<!-- prompts the user for the username -->
 					<label>Username:</label>
 					<input type="text" id="username-field" name = "username" class="login-form-field" placeholder="Username" required>
 				</div>
 		
 				<div>
-					<!-- prompts the user for the password -->
 					<label>Password:</label>
 					<input type="password" id="password-field" name = "password" class="login-form-field" placeholder="Password" required>
 				</div>
