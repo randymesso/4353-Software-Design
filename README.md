@@ -4,4 +4,4 @@ GitHub repository to hold all of the materials used for the project
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
 | 01 | [A01](https://github.com/randymesso/4353-Software-Design/tree/main/Assignment%201) |  UML design |
-| 02 | [A02](https://github.com/randymesso/3013-Algorithms/tree/main/Assignments/P01) | Front end design |
+| 02 | [A02](https://github.com/randymesso/4353-Software-Design/tree/main/Assignment%2021) | Front end design |
