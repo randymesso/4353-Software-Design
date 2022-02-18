@@ -1,7 +1,7 @@
 // function for validating whether the user/pssword combination is valid for an existing user for logging in 
 function validUser(user,pssword)
 {
-	console.log(user + " " + pssword);
+	// placeholder 
 	return true;
 }
 
@@ -13,7 +13,7 @@ loginButton.addEventListener("click", (e) =>
     e.preventDefault();
     const username = loginForm.username.value;
     const password = loginForm.password.value;
-// if the user has successfully used a known user name and password tell them that they have logged in to the actual website
+
     if(validUser(username,password)) 
 	{
 		sessionStorage.setItem('user',username);	

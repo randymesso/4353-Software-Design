@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<!-- -->
+<!-- Login Page -->
 
 <html>
 	<title>Login Portal</title>    
@@ -22,11 +22,12 @@
 			<a href = "login.html">Login</a>
 			<a href = "register.html">Register</a>
 		</nav>
-		
 		<nav id = "logged_nav">
 			<a href = "front_layout.html">Home Page</a>
-			<a href = "profile.html">Profile Management</a>
-			<a href = "register.html">Fuel Quote History</a>
+			<a href = "profile_manager.html">Profile Management</a>
+			<a href = "fuel_quote_form.html">Fuel Quote Form</a>
+			<a href = "fuel_history.html">Fuel Quote History</a>
+			<a href = "login.html" onclick="logout()">Logout</a>
 		</nav>
 		
 		<!-- Main login form -->
@@ -47,7 +48,7 @@
 				</div>
 		
 				<div>
-					<input type="submit" value = "Login" id="login-form-submit">
+					<input type="submit" value = "Login" id="login-form-submit" href = "front_page.html">
 				</div>
 		
 				<div>

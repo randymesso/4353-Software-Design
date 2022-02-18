@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 
-<!-- Front Page -->
+<!-- Fuel Quote History -->
 
 <html>
-	<title>Front Page</title>
+	<title>Fuel Quote History</title>
     <link rel="stylesheet" href="style.css">
-	<script defer src="function.js"></script> 
+	
+	<script defer src="function.js"></script>
 	
 	<div id="bg">
-		
 		<!-- Logged in user-->
 		<div id = "profile_header">
 			<p id = "logged_in_user" ></p>
@@ -25,12 +25,24 @@
 			<a href = "front_layout.html">Home Page</a>
 			<a href = "profile_manager.html">Profile Management</a>
 			<a href = "fuel_quote_form.html">Fuel Quote Form</a>
-			<a href = "register.html">Fuel Quote History</a>
+			<a href = "fuel_history.html">Fuel Quote History</a>
 			<a href = "login.html" onclick="logout()">Logout</a>
 		</nav>
 		
-		<body>
+		<header>
+			<h2>Fuel Quote History</h2>
 			
+			<table>
+				<tr>
+					<th>Gallons Requested:</th>
+					<th>Delivery Address:</th>
+					<th>Delivery Date:</th>
+					<th>Suggested Price:</th>
+					<th>Total Amount Due:</th>
+				</tr>
+			</table>
+		</header>
+		<body>
 		</body>
 	</div>
 </html>

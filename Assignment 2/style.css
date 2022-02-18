@@ -46,7 +46,6 @@ input[type="text"]
 body
 {
 	justify-content: center;
-	padding: 10px;
 }
 
 nav
@@ -68,4 +67,32 @@ div
 {
 	padding: 10px;
 	color:white;
+}
+
+header
+{
+	top: 25%;
+	padding-top: 10px;
+	color:white;
+	width:300px;
+}
+
+#logged_nav
+{
+	display: none;
+}
+
+label
+{
+	padding: 10px;
+}
+
+table
+{
+	border: dotted black 10px;
+	width:800px;
+}
+th
+{	
+	background-image: linear-gradient(white,black);
 }

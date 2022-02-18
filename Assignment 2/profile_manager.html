@@ -1,9 +1,13 @@
 <!DOCTYPE HTML>
+
+<!-- Profile Manager Page -->
+
 <html>
-	<title>Profile Manager</title>    
+	<title>Profile Manager</title>
     <link rel="stylesheet" href="style.css">
 	
 	<script defer src="function.js"></script>
+	<script defer src="profile.js"></script>
 	
 	<div id="bg">
 		
@@ -12,32 +16,39 @@
 			<p id = "logged_in_user" ></p>
 		</div>
 		
+		<nav id = "no_log_nav">
+			<a href = "front_layout.html">Home Page</a>
+			<a href = "login.html">Login</a>
+			<a href = "register.html">Register</a>
+		</nav>
 		<nav id = "logged_nav">
 			<a href = "front_layout.html">Home Page</a>
 			<a href = "profile_manager.html">Profile Management</a>
-			<a href = "register.html">Fuel Quote History</a>
+			<a href = "fuel_quote_form.html">Fuel Quote Form</a>
+			<a href = "fuel_history.html">Fuel Quote History</a>
+			<a href = "login.html" onclick="logout()">Logout</a>
 		</nav>
 		
-		<form>
+		<form id="profile-form">
 			<header>
 				<h2>Profile Manager</h2>
 			</header>
 			<body>
 				<div>
 					<label>Fullname</label>
-					<input type="text" id="fullname-field" name = "fullname" class="profile-field" maxlength = "50" required>
+					<input type="text" id="fullname-field" name = "fullname" class="profile-field" maxlength = "50" pattern = "[A-Za-z]{1,}" required>
 				</div>
 				<div>
 					<label>Address 1</label>
-					<input type="text" id="address1-field" name = "address1" class="profile-field" maxlength = "100" required>
+					<input type="text" id="address1-field" name = "address1" class="profile-form-field" maxlength = "100" required>
 				</div>
 				<div>
 					<label>Address 2</label>
-					<input type="text" id="address2-field" name = "address2" class="profile-field" maxlength = "100">
+					<input type="text" id="address2-field" name = "address2" class="profile-form-field" maxlength = "100">
 				</div>
 				<div>
 					<label>City</label>
-					<input type="text" id="city-field" name = "city" class="profile-field" maxlength = "100" required>
+					<input type="text" id="city-field" name = "city" class="profile-form-field" maxlength = "100" required>
 				</div>
 				<div>
 					<label>State</label>
@@ -97,7 +108,7 @@
 				
 				<div>
 					<label>Zipcode:</label>
-					<input type="text" id="zipcode-field" name = "zipcode" class="profile-field" maxlength = "9" pattern="[0-9]{9}" required>
+					<input type="text" id="zipcode-field" name = "zipcode" class="profile-form-field" maxlength = "9" pattern="[0-9]{9}" required>
 				</div>
 				
 				<div>

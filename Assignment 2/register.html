@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 
-<!-- -->
-<!-- If the intended user does not have an account then they need to create one through the register portal below -->
+<!-- Registration Page -->
+
 <html>
 	<title>Registration</title>    
     <link rel="stylesheet" href="style.css">
@@ -25,8 +25,10 @@
 		
 		<nav id = "logged_nav">
 			<a href = "front_layout.html">Home Page</a>
-			<a href = "profile.html">Profile Management</a>
-			<a href = "register.html">Fuel Quote History</a>
+			<a href = "profile_manager.html">Profile Management</a>
+			<a href = "fuel_quote_form.html">Fuel Quote Form</a>
+			<a href = "fuel_history.html">Fuel Quote History</a>
+			<a href = "login.html" onclick="logout()">Logout</a>
 		</nav>
 		
 		<form id="register-form">
@@ -36,13 +38,11 @@
 				</header>
 	
 				<div>
-					<!-- prompts the user to create an Username -->
 					<label>Username:</label>
 					<input type="text" name = "username" class="register-form-field" required >
 				</div>
 		
 				<div>
-					<!-- prompts the user to create a password -->
 					<label>Password:</label>
 					<input type="password" name = "password" class="register-form-field" required>
 				</div>
