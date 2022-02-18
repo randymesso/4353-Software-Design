@@ -33,7 +33,6 @@ input[type="submit"], input[type="button"]
 	height:50px;
 	font-size:15pt;
 	margin: auto;
-	
 	background-color:cyan;
 	box-shadow: 10px 10px 5px;
 }
