@@ -2,9 +2,6 @@
 // function for setting up new account 
 function registerAccount(username)
 {
-	// update session data 
-	sessionStorage.setItem('user',username);	
-	sessionStorage.setItem('logged_in',"true");
 }
 
 // register form handling 
