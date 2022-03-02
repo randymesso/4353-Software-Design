@@ -34,9 +34,18 @@ FILE STRUCTURE:
 	│   │
 	│   ├── templates - html/frontend stuff
 	│   │	└──backend
-	│   │	      └──login.html
+	│   │	      ├──login
+	│   │	      │	   └─login.html	
+	│   │	      ├──styles	   
+	│   │	      │	   └─style.css	
+	│   │	      └──functions		       	
+	│   │		   │
+	│   │		   ├─register.js	
+	│   │		   ├─function.js	
+	│   │		   ├─login.js
+	│   │		   └─profile.js
 	│   │
-	│   │
+	│   │	      
 	│   ├── migrations/
 	│   │   └── __init__.py
 	│   │
