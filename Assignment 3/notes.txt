@@ -1,0 +1,53 @@
+MODELS
+	profile:
+		Full Name - char(50)
+		Address 1 - char(100)	
+		Addresss 2 - char(100)
+		City - char(100)
+		State - char(2)
+		Zipcode - char(9)
+
+	Fuel Quote:
+		Gallons Requested - int
+		Delivery address - char(100)
+		Delivery date - date
+		Suggested Price - int
+		Total Amount Due - int
+
+	Pricing Module:
+		class for it 
+
+FUNCTIONS/APPS
+	Login Module:
+		validate user/password from login.js
+
+	Client Profile Management:
+		Update and register client info in the database
+
+	Fuel Quote Module:
+		Grab history from client data 
+
+FILE STRUCTURE:
+	env  +	assignment_3
+	│
+	├── backend/ - main project folder
+	│   │
+	│   ├── migrations/
+	│   │   └── __init__.py
+	│   │
+	│   ├── __init__.py
+	│   ├── admin.py
+	│   ├── apps.py
+	│   ├── models.py
+	│   ├── tests.py
+	│   └── views.py
+	│
+	├── assignment_3 - setup folder
+	│   ├── __init__.py
+	│   ├── asgi.py
+	│   ├── settings.py
+	│   ├── urls.py
+	│   └── wsgi.py
+	│
+	├── manage.py - management program
+	├── db.sqlite3 - database file
