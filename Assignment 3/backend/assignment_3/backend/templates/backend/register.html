@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+
+<!-- Registration Page -->
+
+<html>
+	<title>Registration</title>    
+    <link rel="stylesheet" href="style.css">
+	
+	<script defer src="function.js"></script> 
+	<script defer src="register.js"></script> 	
+	
+	<div id="bg">
+		
+		<!-- Logged in user-->
+		<div id = "profile_header">
+			<p id = "logged_in_user" ></p>
+		</div>
+		
+		<!-- Navigation Bar -->
+		<nav id = "no_log_nav">
+			<a href = "front_layout.html">Home Page</a>
+			<a href = "login.html">Login</a>
+			<a href = "register.html">Register</a>
+		</nav>
+		
+		<nav id = "logged_nav">
+			<a href = "front_layout.html">Home Page</a>
+			<a href = "profile_manager.html">Profile Management</a>
+			<a href = "fuel_quote_form.html">Fuel Quote Form</a>
+			<a href = "fuel_history.html">Fuel Quote History</a>
+			<a href = "login.html" onclick="logout()">Logout</a>
+		</nav>
+		
+		<form id="register-form">
+			<body>
+				<header>
+					<h2>Registration</h2>
+				</header>
+	
+				<div>
+					<label>Username:</label>
+					<input type="text" name = "username" class="register-form-field" required >
+				</div>
+		
+				<div>
+					<label>Password:</label>
+					<input type="password" name = "password" class="register-form-field" required>
+				</div>
+		
+				<div>
+					<input type="submit" value = "Register" id="register-form-submit">
+				</div>
+			</body>
+		</form>
+		
+	</div>
+</html>

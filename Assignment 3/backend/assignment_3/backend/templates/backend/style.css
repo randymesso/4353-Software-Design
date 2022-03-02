@@ -1,0 +1,98 @@
+
+/*
+	CSS for Front-End
+*/
+
+*
+{
+	font-family: "Century Gothic";
+}
+
+#bg
+{
+	background-image:linear-gradient(red,orange);
+	position: fixed; 
+	top: 0; 
+	left: 0; 
+	
+	min-width: 100%;
+	min-height: 100%;
+}
+
+#profile_header
+{
+	background-image: linear-gradient(lightblue,blue);
+	text-align:right; 
+	margin-right:20px;
+	
+}
+
+input[type="submit"], input[type="button"]
+{
+	width:250px;
+	height:50px;
+	font-size:15pt;
+	margin: auto;
+	
+	background-color:cyan;
+	box-shadow: 10px 10px 5px;
+}
+
+input[type="text"]
+{
+	background-color:white;
+}
+
+body
+{
+	justify-content: center;
+}
+
+nav
+{
+	min-height: 20%;
+	background-color: white;
+	justify-content:center;
+}
+
+nav a
+{
+	padding: 20px;
+	border: 2px solid black;
+	background-color: white;
+	text-decoration: none;
+}
+
+div
+{
+	padding: 10px;
+	color:white;
+}
+
+header
+{
+	top: 25%;
+	padding-top: 10px;
+	color:white;
+	width:300px;
+}
+
+#logged_nav
+{
+	display: none;
+}
+
+label
+{
+	padding: 10px;
+}
+
+table
+{
+	border: dotted black 10px;
+	width:800px;
+}
+th
+{	
+	background-image: linear-gradient(white,black);
+}

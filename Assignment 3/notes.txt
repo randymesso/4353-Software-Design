@@ -32,6 +32,11 @@ FILE STRUCTURE:
 	│
 	├── backend/ - main project folder
 	│   │
+	│   ├── templates - html/frontend stuff
+	│   │	└──backend
+	│   │	      └──login.html
+	│   │
+	│   │
 	│   ├── migrations/
 	│   │   └── __init__.py
 	│   │

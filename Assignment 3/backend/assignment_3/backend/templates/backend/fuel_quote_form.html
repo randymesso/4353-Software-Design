@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+
+<!-- Fuel Quote Form -->
+
+<html>
+	<title>Fuel Quote</title>
+    <link rel="stylesheet" href="style.css">
+	
+	<script defer src="function.js"></script>
+	
+	<script>
+		window.onload = function() {
+			const input = document.querySelector('input');
+			const inputGallons = document.getElementById("gallons-field");
+			const priceOutput = document.getElementById("amount_due");
+			
+			inputGallons.addEventListener('input', updateValue);
+			
+			function updateValue(e)
+			{
+				priceOutput.textContent = 2*e.target.value;
+			}
+		};
+	</script>
+	
+	<div id="bg">
+		<!-- Logged in user-->
+		<div id = "profile_header">
+			<p id = "logged_in_user" ></p>
+		</div>
+		
+		<!-- Navigation Bar -->
+		<nav id = "no_log_nav">
+			<a href = "front_layout.html">Home Page</a>
+			<a href = "login.html">Login</a>
+			<a href = "register.html">Register</a>
+		</nav>
+		
+		<nav id = "logged_nav">
+			<a href = "front_layout.html">Home Page</a>
+			<a href = "profile_manager.html">Profile Management</a>
+			<a href = "fuel_quote_form.html">Fuel Quote Form</a>
+			<a href = "fuel_history.html">Fuel Quote History</a>
+			<a href = "login.html" onclick="logout()">Logout</a>
+		</nav>
+		
+		<form>
+			<header>
+				<h2>Fuel Quote Form:</h2>
+			</header>
+			<body>
+				<div>
+					<label>Gallons Requested:</label>
+					<input type="number" id="gallons-field" name="gallons" class = "fuel-field" min="0" placeholder = 0 required>
+				</div>
+			
+				<div>
+					<label>Delivery Address:<label id="profile_address"></label></label>
+				</div>
+			
+				<div>
+					<label>Delivery Date:</label>
+					<input type="date" id="date-field" name="calendar" class="fuel-field" required>
+				</div>
+				
+				<div>
+					<label>Suggested Price: $<label id="suggested_price">Price / Gallon</label></label>
+				</div>
+				
+				<div>
+					<label>Total Amount Due: $<label id = "amount_due"></label></label>
+				</div>
+				
+				<div>
+					<input type="submit" value = "Submit Form" id="fuel-form-submit">
+				</div>
+			</body>
+		</form>
+	</div>	
+</html>
