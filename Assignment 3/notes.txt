@@ -48,21 +48,19 @@ FILE STRUCTURE:
 	│   │	├──fuel_history.html
 	│   │	├──fuel_quote_form.html
 	│   │   ├──profile_manager.html
-	│   │	├──register.html	 		   		
-	│   │	└──functions		       	
-	│   │	     │
-	│   │	     ├─register.js	
-	│   │	     ├─function.js	
-	│   │        ├─login.js
-	│   │        └─profile.js
-	│   │      
+	│   │	└──register.html	 		   		
+	│   │	
 	│   ├── migrations/
 	│   │   └── __init__.py
 	│   │
 	│   ├── __init__.py
-	│   ├── admin.py
+	│   ├── admin.py - admin access
 	│   ├── apps.py
-	│   ├── models.py - data models
+	│   ├── models.py - data models used in the program, utilizing a SQL schema
+	│   │   ├── Profile 
+	│   │   ├── Fuel_Quote
+	│   │   └── Pricing_Module
+	│   │
 	│   ├── tests.py 
 	│   ├── urls.py - specific url to html connections for the back end
 	│   └── views.py - all views/webpages 
