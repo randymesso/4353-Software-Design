@@ -62,17 +62,20 @@ FILE STRUCTURE:
 	│   ├── __init__.py
 	│   ├── admin.py
 	│   ├── apps.py
-	│   ├── models.py
-	│   ├── tests.py
-	│   └── views.py
+	│   ├── models.py - data models
+	│   ├── tests.py 
+	│   ├── urls.py - specific url to html connections for the back end
+	│   └── views.py - all views/webpages 
 	│
 	├── assignment_3 - setup folder
 	│   ├── __init__.py
 	│   ├── asgi.py
-	│   ├── settings.py
-	│   ├── urls.py
+	│   ├── settings.py - main settings
+	│   ├── urls.py - url connections for the back end
 	│   └── wsgi.py
 	│
+	├── .coverage - coverage report 
 	├── manage.py - management program
 	└── db.sqlite3 - database file
+
 
