@@ -1,13 +1,14 @@
+{% load static %}
 <!DOCTYPE HTML>
 
 <!-- Login Page -->
 
 <html>
 	<title>Login Portal</title>    
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'style/style.css'%}">
 	
-	<script defer src="function.js"></script> 
-	<script defer src="login.js"></script> 
+	<script defer src="{% static 'function/function.js' %}"></script> 
+	<script defer src="{% static 'function/login.js' %}"></script> 
 	
 	<div id="bg">
 		
@@ -18,10 +19,11 @@
 		
 		<!-- Navigation Bar -->
 		<nav id = "no_log_nav">
-			<a href = "front_layout.html">Home Page</a>
-			<a href = "login.html">Login</a>
-			<a href = "register.html">Register</a>
+			<a href = "{% url 'front_page'%}">Home Page</a>
+			<a href = "{% url 'login'%}">Login</a>
+			<a href = "{% url 'register'%}">Register</a>
 		</nav>
+		
 		<nav id = "logged_nav">
 			<a href = "front_layout.html">Home Page</a>
 			<a href = "profile_manager.html">Profile Management</a>

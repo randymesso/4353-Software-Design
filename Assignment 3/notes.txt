@@ -32,20 +32,29 @@ FILE STRUCTURE:
 	│
 	├── backend/ - main project folder
 	│   │
-	│   ├── templates - html/frontend stuff
-	│   │	└──backend
-	│   │	      ├──login
-	│   │	      │	   └─login.html	
-	│   │	      ├──styles	   
-	│   │	      │	   └─style.css	
-	│   │	      └──functions		       	
-	│   │		   │
-	│   │		   ├─register.js	
-	│   │		   ├─function.js	
-	│   │		   ├─login.js
-	│   │		   └─profile.js
+	│   ├── static - for pages
+	│   │   ├──function
+	│   │	│
+	│   │	│
+	│   │	│
+	│   │	└──style
+	│   │	     └──style.css
 	│   │
-	│   │	      
+	│   │
+	│   │
+	│   ├── templates- frontend 
+	│   │	├──login.html
+	│   │	├──front_layout.html
+	│   │	├──fuel_history.html
+	│   │	├──fuel_quote_form.html
+	│   │   ├──profile_manager.html
+	│   │	├──register.html	 		   		
+	│   │	└──functions		       	
+	│   │	     │
+	│   │	     ├─register.js	
+	│   │	     ├─function.js	
+	│   │        ├─login.js
+	│   │        └─profile.js	      
 	│   ├── migrations/
 	│   │   └── __init__.py
 	│   │
@@ -64,4 +73,5 @@ FILE STRUCTURE:
 	│   └── wsgi.py
 	│
 	├── manage.py - management program
-	├── db.sqlite3 - database file
+	└── db.sqlite3 - database file
+
