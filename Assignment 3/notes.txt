@@ -54,7 +54,8 @@ FILE STRUCTURE:
 	│   │	     ├─register.js	
 	│   │	     ├─function.js	
 	│   │        ├─login.js
-	│   │        └─profile.js	      
+	│   │        └─profile.js
+	│   │      
 	│   ├── migrations/
 	│   │   └── __init__.py
 	│   │
