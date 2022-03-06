@@ -34,13 +34,13 @@ FILE STRUCTURE:
 	│   │
 	│   ├── static - for pages
 	│   │   ├──function
-	│   │	│
-	│   │	│
+	│   │	│    ├──function.js	
+	│   │	│    ├──login.js
+	│   │	│    ├──profile.js	
+	│   │	│    └──register.js
 	│   │	│
 	│   │	└──style
 	│   │	     └──style.css
-	│   │
-	│   │
 	│   │
 	│   ├── templates- frontend 
 	│   │	├──login.html
