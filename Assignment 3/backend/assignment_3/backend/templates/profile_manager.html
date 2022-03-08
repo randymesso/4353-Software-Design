@@ -17,6 +17,7 @@
 			<p id = "logged_in_user" ></p>
 		</div>
 		
+		<!-- Navigation Bar -->
 		<nav id = "no_log_nav">
 			<a href = "{% url 'front_page'%}">Home Page</a>
 			<a href = "{% url 'login'%}">Login</a>
@@ -27,7 +28,7 @@
 			<a href = "{% url 'front_page'%}">Home Page</a>
 			<a href = "{% url 'profile_manager'%}">Profile Management</a>
 			<a href = "{% url 'fuel_quote'%}">Fuel Quote Form</a>
-			<a href = "{% url 'fuel_history'%}.html">Fuel Quote History</a>
+			<a href = "{% url 'fuel_history'%}">Fuel Quote History</a>
 			<a href = "{% url 'login'%}" onclick="logout()">Logout</a>
 		</nav>
 		
