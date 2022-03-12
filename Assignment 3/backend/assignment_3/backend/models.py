@@ -8,6 +8,9 @@ from django.db.models import IntegerField, Model
 
 #profile model
 class Profile(models.Model):
+    username = models.CharField(max_length = 50, default = 'new_user')
+    password = models.CharField(max_length = 50, default = 'no_password')
+    
     fullname = models.CharField(max_length=50)
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100)

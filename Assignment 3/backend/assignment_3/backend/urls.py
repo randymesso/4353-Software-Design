@@ -1,5 +1,4 @@
 from django.urls import path
-
 from . import views
 
 # establishes url connection with each html front page 

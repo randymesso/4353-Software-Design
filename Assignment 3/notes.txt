@@ -61,6 +61,7 @@ FILE STRUCTURE:
 	│   │   ├── Fuel_Quote
 	│   │   └── Pricing_Module
 	│   │
+	│   ├── forms.py - for handling forms	
 	│   ├── tests.py 
 	│   ├── urls.py - specific url to html connections for the back end
 	│   └── views.py - all views/webpages 
