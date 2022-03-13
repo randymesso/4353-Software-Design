@@ -3,20 +3,17 @@ from django.shortcuts import render
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
 
 # No logged in profile pages
 
 # Front page
 def front_page(request):
     return render(request, 'front_layout.html', {})
-
-# Login page
-def login(request):
-    return render(request, 'login.html', {})
-
-# Registration page
-def register(request):
-    return render(request, 'register.html',{})
 
 # logged in profile pages    
 
@@ -28,3 +25,10 @@ def fuel_history(request):
     
 def fuel_quote(request):
     return render(request, 'fuel_quote_form.html',{})
+    
+    
+# Registration page
+class register(CreateView):
+    form_class = UserCreationForm
+    sucess_url = reverse_lazy("login")
+    template_name = "registration/signup.html"

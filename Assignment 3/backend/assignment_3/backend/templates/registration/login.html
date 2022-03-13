@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'style/style.css'%}">
 	
 	<script defer src="{% static 'function/function.js' %}"></script> 
-	<script defer src="{% static 'function/login.js' %}"></script> 
 	
 	<div id="bg">
 		
@@ -17,19 +16,9 @@
 			<p id = "logged_in_user" ></p>
 		</div>
 		
-		<!-- Navigation Bar -->
 		<nav id = "no_log_nav">
 			<a href = "{% url 'front_page'%}">Home Page</a>
-			<a href = "{% url 'login'%}">Login</a>
-			<a href = "{% url 'register'%}">Register</a>
-		</nav>
-		
-		<nav id = "logged_nav">
-			<a href = "{% url 'front_page'%}">Home Page</a>
-			<a href = "{% url 'profile_manager'%}">Profile Management</a>
-			<a href = "{% url 'fuel_quote'%}">Fuel Quote Form</a>
-			<a href = "{% url 'fuel_history'%}">Fuel Quote History</a>
-			<a href = "{% url 'login'%}" onclick="logout()">Logout</a>
+			<a href = "{% url 'signup'%}">Register</a>
 		</nav>
 		
 		<!-- Main login form -->
@@ -41,11 +30,11 @@
 				</header>
 	
 				<div>
-					{{ form.as_p }}
+				{{form.as_p}}
 				</div>
 				
 				<div>
-					<input type="submit" value = "Login" id="login-form-submit" href = "front_page.html">
+					<input type="submit" value = "Submit" id="login-form-submit" href = "front_page.html">
 				</div>
 		
 				<div>

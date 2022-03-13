@@ -13,14 +13,23 @@
 		
 		<!-- Logged in user-->
 		<div id = "profile_header">
-			<p id = "logged_in_user" ></p>
+			{% if user.is_authenticated %}
+				<p>Welcome {{user.username}}</p>
+			{% else %}
+				<p>Not Logged In</p>
+			{% endif %}
 		</div>
 		
 		<!-- Navigation Bar -->
 		<nav id = "no_log_nav">
 			<a href = "{% url 'front_page'%}">Home Page</a>
-			<a href = "{% url 'login'%}">Login</a>
-			<a href = "{% url 'register'%}">Register</a>
+			{% if user.is_authenticated %}
+				<a href="{% url 'logout' %}">Logout</a>
+			{% else %}
+				<a href = "{% url 'login'%}">Login</a>
+				<a href = "{% url 'signup'%}">Register</a>
+			{% endif %}
+			
 		</nav>
 		
 		<nav id = "logged_nav">

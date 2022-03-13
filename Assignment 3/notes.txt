@@ -28,7 +28,8 @@ FUNCTIONS/APPS
 		Grab history from client data 
 
 FILE STRUCTURE:
-	env  +	assignment_3
+	
+env + assignment_3 - virtual environment and main backend files
 	│
 	├── backend/ - main project folder
 	│   │
@@ -73,7 +74,7 @@ FILE STRUCTURE:
 	│   ├── urls.py - url connections for the back end
 	│   └── wsgi.py
 	│
-	├── .coverage - coverage report 
+	├── .coverage - coverage report file (open with coverage report command)
 	├── manage.py - management program
 	└── db.sqlite3 - database file
 

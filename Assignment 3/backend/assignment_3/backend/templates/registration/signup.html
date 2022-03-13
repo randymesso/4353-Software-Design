@@ -21,31 +21,16 @@
 		<nav id = "no_log_nav">
 			<a href = "{% url 'front_page'%}">Home Page</a>
 			<a href = "{% url 'login'%}">Login</a>
-			<a href = "{% url 'register'%}">Register</a>
 		</nav>
 		
-		<nav id = "logged_nav">
-			<a href = "{% url 'front_page'%}">Home Page</a>
-			<a href = "{% url 'profile_manager'%}">Profile Management</a>
-			<a href = "{% url 'fuel_quote'%}">Fuel Quote Form</a>
-			<a href = "{% url 'fuel_history'%}">Fuel Quote History</a>
-			<a href = "{% url 'login'%}" onclick="logout()">Logout</a>
-		</nav>
-		
-		<form id="register-form">
+		<form method = "post" action="{% url 'signup' %}" id="register-form">
 			<body>
 				<header>
 					<h2>Registration</h2>
 				</header>
 	
 				<div>
-					<label>Username:</label>
-					<input type="text" name = "username" class="register-form-field" required >
-				</div>
-		
-				<div>
-					<label>Password:</label>
-					<input type="password" name = "password" class="register-form-field" required>
+					{{form}}
 				</div>
 		
 				<div>
