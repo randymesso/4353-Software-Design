@@ -14,8 +14,6 @@ from django.db.models.signals import post_save
 #profile model
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
-    username = models.CharField(max_length = 50, default = 'new_user')
-    password = models.CharField(max_length = 50, default = 'no_password')
     
     fullname = models.CharField(max_length=50)
     address1 = models.CharField(max_length=100)
