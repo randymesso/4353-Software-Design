@@ -41,4 +41,3 @@ class Fuel_Quote(models.Model):
 #pricing module model
 class Pricing_Module(models.Model):
     suggested_price = models.IntegerField(default = 0, validators=[MinValueValidator(0)])
-    
