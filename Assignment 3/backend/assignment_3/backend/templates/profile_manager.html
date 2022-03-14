@@ -22,7 +22,7 @@
 			<a href = "{% url 'front_page'%}">Home Page</a>
 		</nav>
 		
-		<form method="POST" id="profile-form">
+		<form method="POST" action="/profile_manager" id="profile-form">
 			{% csrf_token %}
 			<body>
 				<header>

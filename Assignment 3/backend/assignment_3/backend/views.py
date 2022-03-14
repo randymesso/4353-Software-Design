@@ -1,8 +1,6 @@
 from . import forms,models
 from django.shortcuts import render
 
-from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
@@ -19,7 +17,6 @@ def front_page(request):
 
 def profile_manager(request):
     model = models.Profile
-    forms.ProfileManager(instance=request.user.profile)
     
     if request.method == "POST":
         form = forms.ProfileManager(request.POST)
