@@ -1,3 +1,6 @@
 from django.test import TestCase
+from backend.models import Profile
 
-# Create your tests here.
+class ProfileTestCase(TestCase):
+    def setUp(self):
+        Profile.objects.create()

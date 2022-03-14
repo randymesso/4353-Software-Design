@@ -1,4 +1,4 @@
-from . import forms
+from . import forms,models
 from django.shortcuts import render
 
 from django.contrib.auth import login
@@ -15,13 +15,20 @@ from django.views.generic.edit import CreateView
 def front_page(request):
     return render(request, 'front_layout.html', {})
 
-def register(request):
-    form = PostForm()
-
 # logged in profile pages    
 
 def profile_manager(request):
-    return render(request, 'profile_manager.html',{})
+    model = models.Profile
+    forms.ProfileManager(instance=request.user.profile)
+    
+    if request.method == "POST":
+        form = forms.ProfileManager(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('')
+    else:
+        form = forms.ProfileManager()
+    
+    return render(request, 'profile_manager.html',{'form':form})
 
 def fuel_history(request):
     return render(request, 'fuel_history.html',{})

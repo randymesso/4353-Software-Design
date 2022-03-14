@@ -1,15 +1,19 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db.models import IntegerField, Model
 
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 
 #profile model
 class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     username = models.CharField(max_length = 50, default = 'new_user')
     password = models.CharField(max_length = 50, default = 'no_password')
     
@@ -18,7 +22,15 @@ class Profile(models.Model):
     address2 = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=2)
-    zipcode = models.CharField(max_length=9,validators=[RegexValidator(regex=r'^(^[0-9]{5}(?:-[0-9]{4})?$|^$)')])        
+    zipcode = models.CharField(max_length=9,validators=[RegexValidator(regex=r'^(^[0-9]{5}(?:-[0-9]{4})?$|^$)')])
+    
+    @receiver(post_save,sender=User)
+    def create_user_profile(sender,instance, created, **kwards):
+        if (created):
+            Profile.objects.create(user=instance)
+            
+    def save_user_profile(sender,instance, **kwards):
+        instance.profile.save()
 
 #fuel quote model
 class Fuel_Quote(models.Model):
