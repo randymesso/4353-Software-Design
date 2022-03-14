@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE HTML>
+
+<!-- Profile Manager Page -->
+
+<html>
+	<title>Profile Manager</title>
+    <link rel="stylesheet" href="{% static 'style/style.css'%}">
+	
+	<div id="bg">
+		
+		<!-- Logged in user-->
+		<div id = "profile_header">
+			{% if user.is_authenticated %}
+				<p>Welcome {{user.username}}</p>
+			{% else %}
+				<p>Not Logged In</p>
+			{% endif %}
+		</div>
+		
+		<nav id = "no_log_nav">
+			<a href = "{% url 'front_page'%}">Home Page</a>
+		</nav>
+		
+		<form method="POST" id="profile-form">
+			{% csrf_token %}
+			<body>
+				<header>
+					<h2>Profile Manager</h2>
+				</header>
+				<div>
+					{{form.as_p}}
+				</div>
+				<div>
+					<input type="submit" value = "Update Profile" id="profile-form-submit">
+				</div>
+			</body>	
+		</form>
+		
+	</div>
+</html>
