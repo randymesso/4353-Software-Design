@@ -15,6 +15,9 @@ from django.views.generic.edit import CreateView
 def front_page(request):
     return render(request, 'front_layout.html', {})
 
+def register(request):
+    form = PostForm()
+
 # logged in profile pages    
 
 def profile_manager(request):
@@ -30,5 +33,6 @@ def fuel_quote(request):
 # Registration page
 class register(CreateView):
     form_class = UserCreationForm
-    sucess_url = reverse_lazy("login")
-    template_name = "registration/signup.html"
+    success_url = reverse_lazy('login')
+    template_name = 'registration/signup.html'
+    

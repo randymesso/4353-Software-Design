@@ -4,6 +4,8 @@ from django.utils import timezone
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db.models import IntegerField, Model
 
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 #profile model
@@ -16,7 +18,7 @@ class Profile(models.Model):
     address2 = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=2)
-    zipcode = models.CharField(max_length=9,validators=[RegexValidator(regex=r'^(^[0-9]{5}(?:-[0-9]{4})?$|^$)')])
+    zipcode = models.CharField(max_length=9,validators=[RegexValidator(regex=r'^(^[0-9]{5}(?:-[0-9]{4})?$|^$)')])        
 
 #fuel quote model
 class Fuel_Quote(models.Model):

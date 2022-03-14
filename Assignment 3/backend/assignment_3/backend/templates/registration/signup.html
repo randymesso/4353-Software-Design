@@ -24,6 +24,7 @@
 		</nav>
 		
 		<form method = "post" action="{% url 'signup' %}" id="register-form">
+			{% csrf_token %}
 			<body>
 				<header>
 					<h2>Registration</h2>
@@ -34,7 +35,7 @@
 				</div>
 		
 				<div>
-					<input type="submit" value = "Register" id="register-form-submit">
+					<button type="submit">Register</button>
 				</div>
 			</body>
 		</form>

@@ -34,12 +34,6 @@ env + assignment_3 - virtual environment and main backend files
 	├── backend/ - main project folder
 	│   │
 	│   ├── static - for pages
-	│   │   ├──function
-	│   │	│    ├──function.js	
-	│   │	│    ├──login.js
-	│   │	│    ├──profile.js	
-	│   │	│    └──register.js
-	│   │	│
 	│   │	└──style
 	│   │	     └──style.css
 	│   │
