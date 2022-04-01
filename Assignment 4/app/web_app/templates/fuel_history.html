@@ -1,32 +1,38 @@
+{% load static %}
 <!DOCTYPE HTML>
 
 <!-- Fuel Quote History -->
 
 <html>
 	<title>Fuel Quote History</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'style/style.css'%}">
 	
 	<script defer src="function.js"></script>
 	
 	<div id="bg">
 		<!-- Logged in user-->
 		<div id = "profile_header">
-			<p id = "logged_in_user" ></p>
+			{% if user.is_authenticated %}
+				<p>Welcome {{user.username}}</p>
+			{% else %}
+				<p>Not Logged In</p>
+			{% endif %}
 		</div>
 		
 		<!-- Navigation Bar -->
 		<nav id = "no_log_nav">
-			<a href = "front_layout.html">Home Page</a>
-			<a href = "login.html">Login</a>
-			<a href = "register.html">Register</a>
-		</nav>
-		
-		<nav id = "logged_nav">
-			<a href = "front_layout.html">Home Page</a>
-			<a href = "profile_manager.html">Profile Management</a>
-			<a href = "fuel_quote_form.html">Fuel Quote Form</a>
-			<a href = "fuel_history.html">Fuel Quote History</a>
-			<a href = "login.html" onclick="logout()">Logout</a>
+			{% if user.has_profile %}
+				<a href="{% url 'fuel_history'%}">Purchase History</a>
+				<a href="{% url 'fuel_quote'%}">Fuel Quote</a>	
+			{% endif %}
+			{% if user.is_authenticated %}
+				<a href="{% url 'profile_manager'%}">Profile Management</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			{% else %}
+				<a href = "{% url 'login'%}">Login</a>
+				<a href = "{% url 'signup'%}">Register</a>
+			{% endif %}
+			
 		</nav>
 		
 		<header>

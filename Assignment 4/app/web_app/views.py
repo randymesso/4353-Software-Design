@@ -45,6 +45,11 @@ def fuel_history(request):
     return render(request, 'fuel_history.html',{})
     
 def fuel_quote(request):
+    if request.method == "POST":
+        return HttpResponseRedirect('')
+    else:
+        form = forms.Fuel_Quote
+        
     return render(request, 'fuel_quote_form.html',{})
     
 # Registration page
