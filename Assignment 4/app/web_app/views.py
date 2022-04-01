@@ -7,16 +7,18 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 
-# No logged in profile pages
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 # Front page
 def front_page(request):
     return render(request, 'front_layout.html', {})
 
 # logged in profile pages    
-
 def profile_manager(request):
-    model = models.Profile
+    model = models.ClientInformation
     
     if request.method == "POST":
         form = forms.ProfileManager(request.POST)

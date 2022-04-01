@@ -9,7 +9,7 @@
 
 #bg
 {
-	background-image:linear-gradient(red,orange);
+	background-image: linear-gradient(purple,blue);
 	position: fixed; 
 	top: 0; 
 	left: 0; 
@@ -91,6 +91,7 @@ table
 	border: dotted black 10px;
 	width:800px;
 }
+
 th
 {	
 	background-image: linear-gradient(white,black);

@@ -16,17 +16,17 @@ CREATE TABLE IF NOT EXISTS "auth_group_permissions" (
 	"id"	integer NOT NULL,
 	"group_id"	integer NOT NULL,
 	"permission_id"	integer NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED,
 	FOREIGN KEY("group_id") REFERENCES "auth_group"("id") DEFERRABLE INITIALLY DEFERRED,
-	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "auth_permission" (
 	"id"	integer NOT NULL,
 	"content_type_id"	integer NOT NULL,
 	"codename"	varchar(100) NOT NULL,
 	"name"	varchar(255) NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT),
-	FOREIGN KEY("content_type_id") REFERENCES "django_content_type"("id") DEFERRABLE INITIALLY DEFERRED
+	FOREIGN KEY("content_type_id") REFERENCES "django_content_type"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "auth_group" (
 	"id"	integer NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS "auth_group" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
---  TABLES FOR FUEL QUOTE, PRICING MODULE, AND USER CREDENTIALS
+-- FUEL QUOTE AND PRICING MODULE
 CREATE TABLE IF NOT EXISTS "web_app_fuel_quote" (
 	"id"	integer NOT NULL,
 	"gallons_requested"	integer NOT NULL,
@@ -44,43 +44,29 @@ CREATE TABLE IF NOT EXISTS "web_app_fuel_quote" (
 	"total_due"	integer NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
+
 CREATE TABLE IF NOT EXISTS "web_app_pricing_module" (
 	"id"	integer NOT NULL,
 	"suggested_price"	integer NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
-CREATE TABLE IF NOT EXISTS "web_app_usercredentials" (
-	"id"	integer NOT NULL,
-	"password"	varchar(128) NOT NULL,
-	"last_login"	datetime,
-	"is_superuser"	bool NOT NULL,
-	"username"	varchar(150) NOT NULL UNIQUE,
-	"first_name"	varchar(150) NOT NULL,
-	"last_name"	varchar(150) NOT NULL,
-	"email"	varchar(254) NOT NULL,
-	"is_staff"	bool NOT NULL,
-	"is_active"	bool NOT NULL,
-	"date_joined"	datetime NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT)
-);
-
 
 
 CREATE TABLE IF NOT EXISTS "web_app_usercredentials_groups" (
 	"id"	integer NOT NULL,
 	"usercredentials_id"	bigint NOT NULL,
 	"group_id"	integer NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT),
 	FOREIGN KEY("group_id") REFERENCES "auth_group"("id") DEFERRABLE INITIALLY DEFERRED,
-	FOREIGN KEY("usercredentials_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED
+	FOREIGN KEY("usercredentials_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "web_app_usercredentials_user_permissions" (
 	"id"	integer NOT NULL,
 	"usercredentials_id"	bigint NOT NULL,
 	"permission_id"	integer NOT NULL,
-	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("usercredentials_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
 	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED,
-	FOREIGN KEY("usercredentials_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "django_admin_log" (
 	"id"	integer NOT NULL,
@@ -91,8 +77,8 @@ CREATE TABLE IF NOT EXISTS "django_admin_log" (
 	"content_type_id"	integer,
 	"user_id"	bigint NOT NULL,
 	"action_flag"	smallint unsigned NOT NULL CHECK("action_flag" >= 0),
-	FOREIGN KEY("user_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
 	FOREIGN KEY("content_type_id") REFERENCES "django_content_type"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("user_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "django_session" (
@@ -102,8 +88,7 @@ CREATE TABLE IF NOT EXISTS "django_session" (
 	PRIMARY KEY("session_key")
 );
 
-
---  TABLE FOR CLIENT INFORMATION
+-- CLIENT INFORMATION AND USER CREDENTIALS
 CREATE TABLE IF NOT EXISTS "web_app_clientinformation" (
 	"id"	integer NOT NULL,
 	"fullname"	varchar(50) NOT NULL,
@@ -114,6 +99,20 @@ CREATE TABLE IF NOT EXISTS "web_app_clientinformation" (
 	"zipcode"	varchar(9) NOT NULL,
 	"user_id"	bigint UNIQUE,
 	FOREIGN KEY("user_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "web_app_usercredentials" (
+	"id"	integer NOT NULL,
+	"password"	varchar(128) NOT NULL,
+	"last_login"	datetime,
+	"is_superuser"	bool NOT NULL,
+	"first_name"	varchar(150) NOT NULL,
+	"last_name"	varchar(150) NOT NULL,
+	"email"	varchar(254) NOT NULL,
+	"is_staff"	bool NOT NULL,
+	"is_active"	bool NOT NULL,
+	"date_joined"	datetime NOT NULL,
+	"username"	varchar(50) NOT NULL UNIQUE,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
@@ -138,6 +137,7 @@ INSERT INTO "django_migrations" VALUES (17,'admin','0002_logentry_remove_auto_ad
 INSERT INTO "django_migrations" VALUES (18,'admin','0003_logentry_add_action_flag_choices','2022-03-30 17:16:29.646857');
 INSERT INTO "django_migrations" VALUES (19,'sessions','0001_initial','2022-03-30 17:16:29.679934');
 INSERT INTO "django_migrations" VALUES (20,'web_app','0002_clientinformation_user','2022-03-30 17:51:27.838795');
+INSERT INTO "django_migrations" VALUES (21,'web_app','0003_alter_usercredentials_managers_and_more','2022-04-01 06:30:44.251640');
 INSERT INTO "django_content_type" VALUES (1,'admin','logentry');
 INSERT INTO "django_content_type" VALUES (2,'auth','permission');
 INSERT INTO "django_content_type" VALUES (3,'auth','group');
@@ -183,6 +183,7 @@ INSERT INTO "auth_permission" VALUES (33,9,'add_usercredentials','Can add user')
 INSERT INTO "auth_permission" VALUES (34,9,'change_usercredentials','Can change user');
 INSERT INTO "auth_permission" VALUES (35,9,'delete_usercredentials','Can delete user');
 INSERT INTO "auth_permission" VALUES (36,9,'view_usercredentials','Can view user');
+INSERT INTO "web_app_usercredentials" VALUES (1,'pbkdf2_sha256$320000$K2DrCxUwVnNPAfb7bEISS2$ivUKArExB2v+uQMgwjloctYbI9zYSi2/Y9SFW8ktpXo=','2022-04-01 03:53:06.073534',1,'','','koberunnels@gmail.com',1,1,'2022-03-30 21:29:32.596446','elect');
 CREATE UNIQUE INDEX IF NOT EXISTS "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" (
 	"app_label",
 	"model"
