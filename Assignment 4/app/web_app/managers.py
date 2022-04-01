@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib import messages
+from django.db import models
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password):
@@ -17,5 +18,4 @@ class CustomUserManager(BaseUserManager):
         user.is_admin= True
         user.save(using=self._db)
         return user
-        
         

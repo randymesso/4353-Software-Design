@@ -3,7 +3,6 @@ from .models import UserCredentials, ClientInformation
 from django.test import TestCase
 
 class UsersManagersTests(TestCase):
-
     def test_create_user(self):
         user = UserCredentials.objects.create_user(username='Test_Guy', password='foo')
         self.assertEqual(user.username, 'Test_Guy')
@@ -21,8 +20,14 @@ class UsersManagersTests(TestCase):
         with self.assertRaises(ValueError):
             UserCredentials.objects.create_user(username='', password="foo")
 
-"""
 class ProfileManagerTest(TestCase):
     def test_profile_create(self):
+        user = UserCredentials.objects.create_user(username='Profile_Test_Guy', password='foo')
+        profile = user.clientinformation
         
-"""
+        profile.fullname = "Test G User"
+        
+        try:
+            self.assertEqual(user.username, 'Profile_Test_Guy')
+        except AttributeError:
+            pass

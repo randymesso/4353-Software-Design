@@ -22,6 +22,19 @@ def profile_manager(request):
     if request.method == "POST":
         form = forms.ProfileManager(request.POST)
         if form.is_valid():
+            user = request.user
+            
+            user.has_profile = True
+            
+            user.clientinformation.fullname = form.cleaned_data.get("fullname");
+            user.clientinformation.address1 = form.cleaned_data.get("address1");
+            user.clientinformation.address2 = form.cleaned_data.get("address2");
+            user.clientinformation.city = form.cleaned_data.get("city");
+            user.clientinformation.state = form.cleaned_data.get("state");
+            user.clientinformation.zipcode = form.cleaned_data.get("zipcode");
+            
+            user.clientinformation.save()
+            user.save()
             return HttpResponseRedirect('')
     else:
         form = forms.ProfileManager()
@@ -33,7 +46,6 @@ def fuel_history(request):
     
 def fuel_quote(request):
     return render(request, 'fuel_quote_form.html',{})
-    
     
 # Registration page
 class register(CreateView):
