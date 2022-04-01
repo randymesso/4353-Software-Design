@@ -241,3 +241,4 @@ CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_sess
 	"expire_date"
 );
 COMMIT;
+
