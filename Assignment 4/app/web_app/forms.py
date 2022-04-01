@@ -1,22 +1,19 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
-
 from .models import UserCredentials,ClientInformation   
        
 # form for creating new user        
 class UserCreation(UserCreationForm):
     class Meta:
         model = UserCredentials
-        fields = ("id","password")
+        fields = ("username",)
 
 # form for changing user credentials
 class UserChange(UserChangeForm):
     class Meta:
         model = UserCredentials
-        fields = ("id","password")
+        fields = ("username",)
 
 # form for updating/managing client information 
 class ProfileManager(forms.ModelForm):

@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS "auth_group_permissions" (
 	"id"	integer NOT NULL,
 	"group_id"	integer NOT NULL,
 	"permission_id"	integer NOT NULL,
-	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED,
 	FOREIGN KEY("group_id") REFERENCES "auth_group"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "auth_permission" (
@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS "auth_group" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
--- FUEL QUOTE AND PRICING MODULE
+
+-- FUEL QUOTE AND PRICING MODULE 
 CREATE TABLE IF NOT EXISTS "web_app_fuel_quote" (
 	"id"	integer NOT NULL,
 	"gallons_requested"	integer NOT NULL,
@@ -44,7 +45,6 @@ CREATE TABLE IF NOT EXISTS "web_app_fuel_quote" (
 	"total_due"	integer NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
-
 CREATE TABLE IF NOT EXISTS "web_app_pricing_module" (
 	"id"	integer NOT NULL,
 	"suggested_price"	integer NOT NULL,
@@ -56,16 +56,16 @@ CREATE TABLE IF NOT EXISTS "web_app_usercredentials_groups" (
 	"id"	integer NOT NULL,
 	"usercredentials_id"	bigint NOT NULL,
 	"group_id"	integer NOT NULL,
-	FOREIGN KEY("group_id") REFERENCES "auth_group"("id") DEFERRABLE INITIALLY DEFERRED,
 	FOREIGN KEY("usercredentials_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("group_id") REFERENCES "auth_group"("id") DEFERRABLE INITIALLY DEFERRED,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "web_app_usercredentials_user_permissions" (
 	"id"	integer NOT NULL,
 	"usercredentials_id"	bigint NOT NULL,
 	"permission_id"	integer NOT NULL,
-	FOREIGN KEY("usercredentials_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
 	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("usercredentials_id") REFERENCES "web_app_usercredentials"("id") DEFERRABLE INITIALLY DEFERRED,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "django_admin_log" (
@@ -106,17 +106,16 @@ CREATE TABLE IF NOT EXISTS "web_app_usercredentials" (
 	"password"	varchar(128) NOT NULL,
 	"last_login"	datetime,
 	"is_superuser"	bool NOT NULL,
+	"username"	varchar(50) NOT NULL UNIQUE,
 	"first_name"	varchar(150) NOT NULL,
 	"last_name"	varchar(150) NOT NULL,
 	"email"	varchar(254) NOT NULL,
 	"is_staff"	bool NOT NULL,
 	"is_active"	bool NOT NULL,
 	"date_joined"	datetime NOT NULL,
-	"username"	varchar(50) NOT NULL UNIQUE,
+	"is_admin"	bool NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
-
-
 INSERT INTO "django_migrations" VALUES (1,'contenttypes','0001_initial','2022-03-30 17:16:28.912744');
 INSERT INTO "django_migrations" VALUES (2,'contenttypes','0002_remove_content_type_name','2022-03-30 17:16:28.981560');
 INSERT INTO "django_migrations" VALUES (3,'auth','0001_initial','2022-03-30 17:16:29.054549');
@@ -138,6 +137,8 @@ INSERT INTO "django_migrations" VALUES (18,'admin','0003_logentry_add_action_fla
 INSERT INTO "django_migrations" VALUES (19,'sessions','0001_initial','2022-03-30 17:16:29.679934');
 INSERT INTO "django_migrations" VALUES (20,'web_app','0002_clientinformation_user','2022-03-30 17:51:27.838795');
 INSERT INTO "django_migrations" VALUES (21,'web_app','0003_alter_usercredentials_managers_and_more','2022-04-01 06:30:44.251640');
+INSERT INTO "django_migrations" VALUES (22,'web_app','0004_usercredentials_is_admin','2022-04-01 15:49:24.438134');
+INSERT INTO "django_migrations" VALUES (23,'web_app','0005_alter_usercredentials_is_superuser','2022-04-01 16:18:49.638532');
 INSERT INTO "django_content_type" VALUES (1,'admin','logentry');
 INSERT INTO "django_content_type" VALUES (2,'auth','permission');
 INSERT INTO "django_content_type" VALUES (3,'auth','group');
@@ -183,7 +184,12 @@ INSERT INTO "auth_permission" VALUES (33,9,'add_usercredentials','Can add user')
 INSERT INTO "auth_permission" VALUES (34,9,'change_usercredentials','Can change user');
 INSERT INTO "auth_permission" VALUES (35,9,'delete_usercredentials','Can delete user');
 INSERT INTO "auth_permission" VALUES (36,9,'view_usercredentials','Can view user');
-INSERT INTO "web_app_usercredentials" VALUES (1,'pbkdf2_sha256$320000$K2DrCxUwVnNPAfb7bEISS2$ivUKArExB2v+uQMgwjloctYbI9zYSi2/Y9SFW8ktpXo=','2022-04-01 03:53:06.073534',1,'','','koberunnels@gmail.com',1,1,'2022-03-30 21:29:32.596446','elect');
+INSERT INTO "django_admin_log" VALUES (1,'2022-04-01 15:59:33.418421','2','Test_User','',9,1,3);
+INSERT INTO "django_admin_log" VALUES (2,'2022-04-01 16:45:23.260065','3','Test_User','',9,1,3);
+INSERT INTO "django_session" VALUES ('8qhdzkc8vypukiyw8jtpftf49xv0sxex','.eJxVjEEOwiAQRe_C2pCplAFcuu8ZyAwDUjVtUtqV8e7apAvd_vfef6lI21rj1vISR1EX1avT78aUHnnagdxpus06zdO6jKx3RR-06WGW_Lwe7t9BpVa_NUIx0lkTAAXIJOEQzmxdQPDIFooHESTXU2JJgdCTKeCJ2HVowan3B9oXN88:1naKQo:ugeZ8Cxfffmt8SJalmAeMhRsrIHBjVSomedtIUMJkTg','2022-04-15 16:47:26.802270');
+INSERT INTO "web_app_clientinformation" VALUES (3,'','','','','','',4);
+INSERT INTO "web_app_usercredentials" VALUES (1,'pbkdf2_sha256$320000$K2DrCxUwVnNPAfb7bEISS2$ivUKArExB2v+uQMgwjloctYbI9zYSi2/Y9SFW8ktpXo=','2022-04-01 16:03:44.229107',1,'elect','','','koberunnels@gmail.com',1,1,'2022-03-30 21:29:32.596446',0);
+INSERT INTO "web_app_usercredentials" VALUES (4,'pbkdf2_sha256$320000$n8ZhXqmhT5py2gbDx4I7VG$YvFvCPSBPm22yP3eFT9wjSfr6OCsO9v7M9ThjDsE0DQ=','2022-04-01 16:47:26.777474',0,'Test_User','','','',0,1,'2022-04-01 16:45:31.571494',0);
 CREATE UNIQUE INDEX IF NOT EXISTS "django_content_type_app_label_model_76bd3d3b_uniq" ON "django_content_type" (
 	"app_label",
 	"model"

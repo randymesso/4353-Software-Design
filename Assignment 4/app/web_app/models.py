@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db.models import IntegerField, Model
 
-from django.contrib.auth.models import AbstractUser, User
+from django.contrib.auth.models import AbstractUser
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -15,6 +15,8 @@ from .managers import CustomUserManager
 # User model 
 class UserCredentials(AbstractUser):
     username = models.CharField(max_length=50,unique=True)
+    is_admin = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
