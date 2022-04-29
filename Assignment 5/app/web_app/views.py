@@ -43,23 +43,49 @@ def profile_manager(request):
 
 def fuel_history(request):
     hist = models.Fuel_Quote.objects.filter(username = request.user.username)
-    for obj in hist:
-        print(obj.gallons_requested)
         
     return render(request, 'fuel_history.html', {'hist':hist})
+
+def pricing_module(gallons_requested, fuel_before, location, val):
+    price = 1.5
+    location = 0
+    rate_history = 0
+    company_profit = 10
+    
+    if(location == "TX"):
+        location = 2
+    else:
+        location = 4
+    
+    if(fuel_before):
+        rate_history = 1
+    
+    return val
     
 def fuel_quote(request):
+    total = 0
+    suggested = 0
+    
+    sub_quote = False
+    
     model = models.Fuel_Quote
     user = request.user
     model.delivery_address = user.clientinformation.address1
     
-    if request.method == "POST":
+    # view history
+    hist = models.Fuel_Quote.objects.filter(username = request.user.username)
+    hist_count = hist.count()
+   
+    if request.method == "GET":
+       sub_quote = True
+       form = forms.FuelQuote()
+    elif request.method == "POST" and sub_quote:
         form = forms.FuelQuote(request.POST)
         if form.is_valid():
             new_p = models.Fuel_Quote.objects.create()
             new_p.username=request.user.username    
             new_p.gallons_requested = form.cleaned_data.get("gallons_requested");
-            new_p.delivery_address = user.clientinformation.address1
+            new_p.delivery_address = user.clientinformation.address1 + ", " + user.clientinformation.city + " " + user.clientinformation.state
             new_p.delivery_date = form.cleaned_data.get("delivery_date");
             new_p.suggested_price = form.cleaned_data.get("suggested_price");
             new_p.total_due = form.cleaned_data.get("total_due");
@@ -69,7 +95,7 @@ def fuel_quote(request):
     else:
         form = forms.FuelQuote()    
             
-    return render(request, 'fuel_quote_form.html',{'form':form})
+    return render(request, 'fuel_quote_form.html',{'form':form, 'sub_quote': sub_quote, 'total': total, 'suggested': suggested})
     
 # Registration page
 class register(CreateView):

@@ -33,22 +33,46 @@
 			
 		</nav>
 		
-		<form method="POST" action="/fuel_quote" id="fuel_quote-form">
-			{% csrf_token %}
-			<header>
-				<h2>Fuel Quote Form:</h2>
-			</header>
+		<header>
+			<h2>Fuel Quote Form:</h2>
+		</header>
+		
+		{% if not sub_quote %} 
+			<p style = "color: red;"> Enter A Quote Below </p>
+		{% endif %}
+		
+		<h3> Get Quote </h3>
+		<form method="GET" action="/fuel_quote">
 			<body>
 				<div>
 					{{form.as_p}}
 				</div>
-			
+				
 				<div>
-					<label>Delivery Address: {{user.clientinformation.address1}}, {{user.clientinformation.city}}, {{user.clientinformation.state}}</label></label>
+					<input type="submit" value = "Get Quote" id="fuel-form-submit">
+				</div>
+			</body>
+		</form>
+		
+		<h3> Submit Quote </h3>
+		<form method="POST" action="/fuel_quote" id="fuel_quote-form">
+			{% csrf_token %}
+			<body>
+				<div>
+					<label>Suggested Price: </label> ${{ suggested }}
+				</div>
+				
+				
+				<div>
+					<label>Delivery Address: </label> {{user.clientinformation.address1}}, {{user.clientinformation.city}}, {{user.clientinformation.state}}
 				</div>
 			
 				<div>
-					<input type="submit" value = "Submit Form" id="fuel-form-submit">
+					<label>Total: </label> ${{ total }}
+				</div>
+				
+				<div>
+					<input type="submit" value = "Submit Quote" id="fuel-form-submit">
 				</div>
 			</body>
 		</form>

@@ -57,7 +57,3 @@ class Fuel_Quote(models.Model):
     delivery_date = models.DateField(null=True)
     suggested_price = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])
     total_due = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])
-
-#pricing module model
-class Pricing_Module(models.Model):
-    suggested_price = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])

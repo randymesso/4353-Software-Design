@@ -9,7 +9,7 @@ class DateInput(forms.DateInput):
     
 class NumInput(forms.IntegerField):
     validators=[MinValueValidator(0)]
-      
+
 # form for creating new user        
 class UserCreation(UserCreationForm):
     class Meta:
@@ -20,7 +20,7 @@ class FuelQuote(forms.ModelForm):
     class Meta:
         model = Fuel_Quote
         
-        fields = ["gallons_requested", "delivery_date", "suggested_price", "total_due"]
+        fields = ["gallons_requested", "delivery_date"]
         widgets = {
             'delivery_date': DateInput(),
         }
