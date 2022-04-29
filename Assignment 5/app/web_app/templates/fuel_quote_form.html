@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE HTML>
+
+<!-- Fuel Quote Form -->
+
+<html>
+	<title>Fuel Quote</title>
+    <link rel="stylesheet" href="{% static 'style/style.css'%}">
+		
+	<div id="bg">
+		<!-- Logged in user-->
+		<div id = "profile_header">
+			{% if user.is_authenticated %}
+				<p>Welcome {{user.username}}</p>
+			{% else %}
+				<p>Not Logged In</p>
+			{% endif %}
+		</div>
+		
+		<!-- Navigation Bar -->
+		<nav id = "no_log_nav">
+			{% if user.has_profile %}
+				<a href="{% url 'fuel_history'%}">Purchase History</a>
+				<a href="{% url 'fuel_quote'%}">Fuel Quote</a>	
+			{% endif %}
+			{% if user.is_authenticated %}
+				<a href="{% url 'profile_manager'%}">Profile Management</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			{% else %}
+				<a href = "{% url 'login'%}">Login</a>
+				<a href = "{% url 'signup'%}">Register</a>
+			{% endif %}
+			
+		</nav>
+		
+		<form method="POST" action="/fuel_quote" id="fuel_quote-form">
+			{% csrf_token %}
+			<header>
+				<h2>Fuel Quote Form:</h2>
+			</header>
+			<body>
+				<div>
+					{{form.as_p}}
+				</div>
+			
+				<div>
+					<label>Delivery Address: {{user.clientinformation.address1}}, {{user.clientinformation.city}}, {{user.clientinformation.state}}</label></label>
+				</div>
+			
+				<div>
+					<input type="submit" value = "Submit Form" id="fuel-form-submit">
+				</div>
+			</body>
+		</form>
+	</div>	
+</html>

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE HTML>
+
+<!-- Login Page -->
+
+<html>
+	<title>Login Portal</title>    
+    <link rel="stylesheet" href="{% static 'style/style.css'%}">
+	
+	<div id="bg">
+		
+		<!-- Logged in user-->
+		<div id = "profile_header">
+		</div>
+		
+		<nav id = "no_log_nav">
+			<a href = "{% url 'front_page'%}">Home Page</a>
+			<a href = "{% url 'signup'%}">Register</a>
+		</nav>
+		
+		<!-- Main login form -->
+		<form method = "POST" id="login-form">
+			{% csrf_token %}
+			<body>
+				<header>
+					<h2>Login Portal:</h2>
+				</header>
+	
+				<div>
+					{{form.as_p}}
+				</div>
+				
+				<div>
+					<input type="submit" value = "Submit" id="login-form-submit" href = "front_page.html">
+				</div>
+		
+				<div>
+					<a href="{% url 'signup'%}">Don't have an account? Register here.</a>
+				</div>
+			</body>
+		</form>
+	</div>
+</html>
