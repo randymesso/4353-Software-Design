@@ -58,10 +58,18 @@
 		<form method="POST" action="/fuel_quote" id="fuel_quote-form">
 			{% csrf_token %}
 			<body>
+				{% if sub_quote %} 
+					<div>
+						<label>Gallons:</label> {{gallons}}
+					</div>
+					<div>
+						<label>Delivery Date:</label> {{delivery_date}}
+					</div>
+				{% endif %}
+				
 				<div>
 					<label>Suggested Price: </label> ${{ suggested }}
 				</div>
-				
 				
 				<div>
 					<label>Delivery Address: </label> {{user.clientinformation.address1}}, {{user.clientinformation.city}}, {{user.clientinformation.state}}

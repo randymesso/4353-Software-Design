@@ -46,11 +46,11 @@ def fuel_history(request):
         
     return render(request, 'fuel_history.html', {'hist':hist})
 
-def pricing_module(gallons_requested, fuel_before, location, val):
-    price = 1.5
+def pricing_module(gallons_requested, fuel_before, location):
     location = 0
     rate_history = 0
     company_profit = 10
+    gallon_fact = 0
     
     if(location == "TX"):
         location = 2
@@ -60,13 +60,22 @@ def pricing_module(gallons_requested, fuel_before, location, val):
     if(fuel_before):
         rate_history = 1
     
-    return val
+    if(gallons_requested > 1000):
+        gallon_fact = 2
+    else:
+        gallon_fact = 3
+    
+    per = location - rate_history + gallon_fact + company_profit
+    
+    return per*1.5
     
 def fuel_quote(request):
     total = 0
     suggested = 0
     
     sub_quote = False
+    gallons = 0
+    delivery_date = None
     
     model = models.Fuel_Quote
     user = request.user
@@ -77,8 +86,14 @@ def fuel_quote(request):
     hist_count = hist.count()
    
     if request.method == "GET":
-       sub_quote = True
-       form = forms.FuelQuote()
+       sub_quote = True 
+       gallons = request.GET['gallons_requested']
+       delivery_date = request.GET['delivery_date']
+       
+       suggested = pricing_module(int(gallons), hist_count, user.clientinformation.state) + 1.5
+       total = int(gallons) * suggested
+       
+       form = forms.FuelQuote()      
     elif request.method == "POST" and sub_quote:
         form = forms.FuelQuote(request.POST)
         if form.is_valid():
@@ -87,15 +102,15 @@ def fuel_quote(request):
             new_p.gallons_requested = form.cleaned_data.get("gallons_requested");
             new_p.delivery_address = user.clientinformation.address1 + ", " + user.clientinformation.city + " " + user.clientinformation.state
             new_p.delivery_date = form.cleaned_data.get("delivery_date");
-            new_p.suggested_price = form.cleaned_data.get("suggested_price");
-            new_p.total_due = form.cleaned_data.get("total_due");
+            new_p.suggested_price = suggested;
+            new_p.total_due = total;
 
             new_p.save()
             return HttpResponseRedirect('')
     else:
         form = forms.FuelQuote()    
             
-    return render(request, 'fuel_quote_form.html',{'form':form, 'sub_quote': sub_quote, 'total': total, 'suggested': suggested})
+    return render(request, 'fuel_quote_form.html',{'form':form, 'gallons': gallons, 'delivery_date': delivery_date, 'sub_quote': sub_quote, 'total': total, 'suggested': suggested})
     
 # Registration page
 class register(CreateView):
