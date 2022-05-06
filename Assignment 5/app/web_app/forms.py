@@ -36,3 +36,4 @@ class ProfileManager(forms.ModelForm):
     class Meta:
         model = ClientInformation
         fields = ["fullname", "address1", "address2", "city", "state","zipcode"]
+     

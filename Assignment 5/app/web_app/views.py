@@ -18,27 +18,35 @@ def front_page(request):
 # logged in profile pages    
 def profile_manager(request):
     model = models.ClientInformation
-    
+    user = request.user
+            
     if request.method == "POST":
         form = forms.ProfileManager(request.POST)
         if form.is_valid():
-            user = request.user
-            
             user.has_profile = True
             
-            user.clientinformation.fullname = form.cleaned_data.get("fullname");
-            user.clientinformation.address1 = form.cleaned_data.get("address1");
-            user.clientinformation.address2 = form.cleaned_data.get("address2");
-            user.clientinformation.city = form.cleaned_data.get("city");
-            user.clientinformation.state = form.cleaned_data.get("state");
-            user.clientinformation.zipcode = form.cleaned_data.get("zipcode");
+            user.clientinformation.fullname = form.cleaned_data.get("fullname")
+            user.clientinformation.address1 = form.cleaned_data.get("address1")
+            user.clientinformation.address2 = form.cleaned_data.get("address2")
+            user.clientinformation.city = form.cleaned_data.get("city")
+            user.clientinformation.state = form.cleaned_data.get("state")
+            user.clientinformation.zipcode = form.cleaned_data.get("zipcode")
             
             user.clientinformation.save()
             user.save()
             return HttpResponseRedirect('')
+    elif user.has_profile or hasattr('user','clientinformation'):
+       fullname = user.clientinformation.fullname
+       address1 = user.clientinformation.address1
+       address2 = user.clientinformation.address2 
+       city = user.clientinformation.city
+       state = user.clientinformation.state 
+       zipcode = user.clientinformation.zipcode
+           
+       form = forms.ProfileManager(initial={'fullname':fullname,'address1':address1,'address2':address2,'city':city,'state':state,'zipcode':zipcode})
     else:
         form = forms.ProfileManager()
-    
+        
     return render(request, 'profile_manager.html',{'form':form})
 
 def fuel_history(request):
@@ -86,26 +94,10 @@ def fuel_quote(request):
     hist_count = hist.count()
    
     if request.method == "GET":
-       sub_quote = True 
-       gallons = request.GET['gallons_requested']
-       delivery_date = request.GET['delivery_date']
-       
-       suggested = pricing_module(int(gallons), hist_count, user.clientinformation.state) + 1.5
-       total = int(gallons) * suggested
-       
        form = forms.FuelQuote()      
     elif request.method == "POST" and sub_quote:
         form = forms.FuelQuote(request.POST)
         if form.is_valid():
-            new_p = models.Fuel_Quote.objects.create()
-            new_p.username=request.user.username    
-            new_p.gallons_requested = form.cleaned_data.get("gallons_requested");
-            new_p.delivery_address = user.clientinformation.address1 + ", " + user.clientinformation.city + " " + user.clientinformation.state
-            new_p.delivery_date = form.cleaned_data.get("delivery_date");
-            new_p.suggested_price = suggested;
-            new_p.total_due = total;
-
-            new_p.save()
             return HttpResponseRedirect('')
     else:
         form = forms.FuelQuote()    

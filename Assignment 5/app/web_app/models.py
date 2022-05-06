@@ -36,7 +36,59 @@ class ClientInformation(models.Model):
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    state = models.CharField(max_length=2)
+    States = (('AL','AL'),
+				  ('AK','AK'),
+				  ('AZ','AZ'),
+			      ('AR','AR'),
+				  ('CA','CA'),
+				  ('CO','CO'),
+				  ('CT','CT'),
+				  ('DE','DE'),
+				  ('DC','DC'),
+				  ('FL','FL'),
+				  ('GA','GA'),
+				  ('HI','HI'),
+				  ('ID','ID'),
+				  ('IL','IL'),
+			      ('IN','IN'),
+				  ('IA','IA'),
+				  ('KY','KY'),
+				  ('LA','LA'),
+				  ('ME','ME'),
+				  ('MD','MD'),
+				  ('MA','MA'),
+				  ('MI','MI'),
+			      ('MN','MN'),
+				  ('MS','MS'),
+				  ('MO','MO'),
+				  ('MT','MT'),
+				  ('NE','NE'),
+				  ('NV','NV'),
+				  ('NH','NH'),
+				  ('NJ','NJ'),
+				  ('NM','NM'),
+				  ('NY','NY'),
+				  ('ND','ND'),
+				  ('OH','OH'),
+				  ('OK','OK'),
+				  ('OR','OR'),
+				  ('PA','PA'),
+				  ('RI','RI'),
+				  ('SD','SD'),
+				  ('TN','TN'),
+				  ('TX','TX'),
+				  ('UT','UT'),
+				  ('VT','VT'),
+			 	  ('VA','VA'),
+			      ('WA','WA'),
+				  ('WV','WV'),
+				  ('WI','WI'),
+				  ('WY','WY')
+                 )
+                 
+    state = models.CharField(choices = States, max_length=2, null = False)
+    
+    
     zipcode = models.CharField(max_length=9,validators=[RegexValidator(regex=r'^(^[0-9]{5}(?:-[0-9]{4})?$|^$)')])
 
     @receiver(post_save,sender=UserCredentials)
