@@ -99,12 +99,17 @@ class ClientInformation(models.Model):
     def save_user_profile(sender,instance, **kwards):
         instance.profile.save()
 
+class Initial_Quote(models.Model):
+    gallons_requested = models.PositiveIntegerField(default = 1, validators=[MinValueValidator(1)])
+    delivery_date = models.DateField(null=True)
+    suggested_price = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])
+    total_due = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])
 
 #fuel quote model
 class Fuel_Quote(models.Model):
     username = models.CharField(null = True, max_length=50,unique=False)
     
-    gallons_requested = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])
+    gallons_requested = models.PositiveIntegerField(default = 1, validators=[MinValueValidator(1)])
     delivery_address = models.CharField(max_length=100)
     delivery_date = models.DateField(null=True)
     suggested_price = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])

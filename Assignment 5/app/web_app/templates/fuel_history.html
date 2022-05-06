@@ -19,18 +19,11 @@
 		
 		<!-- Navigation Bar -->
 		<nav id = "no_log_nav">
-			{% if user.has_profile %}
-				<a href="{% url 'fuel_history'%}">Purchase History</a>
-				<a href="{% url 'fuel_quote'%}">Fuel Quote</a>	
-			{% endif %}
-			{% if user.is_authenticated %}
-				<a href="{% url 'profile_manager'%}">Profile Management</a>
-				<a href="{% url 'logout' %}">Logout</a>
-			{% else %}
-				<a href = "{% url 'login'%}">Login</a>
-				<a href = "{% url 'signup'%}">Register</a>
-			{% endif %}
-			
+			<a href="{%url 'front_page'%}">Front Page</a>
+			<a href="{% url 'fuel_quote'%}">Fuel Quote</a>	
+			<a href="{% url 'profile_manager'%}">Profile Management</a>
+			<a href="{% url 'logout' %}">Logout</a>
+			Welcome, {{user.UserCredentials.username}}
 		</nav>
 		
 		<header>

@@ -81,29 +81,43 @@ def fuel_quote(request):
     total = 0
     suggested = 0
     
-    sub_quote = False
     gallons = 0
     delivery_date = None
     
     model = models.Fuel_Quote
     user = request.user
     model.delivery_address = user.clientinformation.address1
-    
-    # view history
-    hist = models.Fuel_Quote.objects.filter(username = request.user.username)
-    hist_count = hist.count()
    
-    if request.method == "GET":
-       form = forms.FuelQuote()      
-    elif request.method == "POST" and sub_quote:
+    if request.method == "POST" and 'gallons_requested' in request.POST:
         form = forms.FuelQuote(request.POST)
         if form.is_valid():
+            new_p = models.Fuel_Quote.objects.create()
+            new_p.username=request.user.username    
+            new_p.gallons_requested = form.cleaned_data.get("gallons_requested");
+            new_p.delivery_address = user.clientinformation.address1 + ", " + user.clientinformation.city + " " + user.clientinformation.state
+            new_p.delivery_date = form.cleaned_data.get("delivery_date");
+            new_p.suggested_price = suggested;
+            new_p.total_due = total;
+
+            new_p.save()
             return HttpResponseRedirect('')
+    elif request.method == "GET" and 'gallons_requested' in request.GET:
+        hist = models.Fuel_Quote.objects.filter(username = request.user.username)
+        hist_count = hist.count()
+        gallons = request.GET['gallons_requested']
+        date = request.GET['delivery_date']
+        suggested = pricing_module(int(gallons),hist_count, user.clientinformation.state)
+        total = int(gallons) * suggested
+        
+        new_quote = models.Initial_Quote.objects.create(gallons_requested=gallons,delivery_date=date,suggested_price=suggested,total_due=total)
+        new_quote.save()
+        
+        form = forms.FuelQuote() 
     else:
         form = forms.FuelQuote()    
             
-    return render(request, 'fuel_quote_form.html',{'form':form, 'gallons': gallons, 'delivery_date': delivery_date, 'sub_quote': sub_quote, 'total': total, 'suggested': suggested})
-    
+    return render(request, 'fuel_quote_form.html',{'form':form, 'gallons': gallons, 'delivery_date': delivery_date, 'total': total, 'suggested': suggested})
+
 # Registration page
 class register(CreateView):
     form_class = forms.UserCreation

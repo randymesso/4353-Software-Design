@@ -19,7 +19,13 @@
 		</div>
 		
 		<nav id = "no_log_nav">
-			<a href = "{% url 'front_page'%}">Home Page</a>
+			<a href="{%url 'front_page'%}">Front Page</a>
+			{% if user.has_profile %}
+				<a href="{% url 'fuel_history'%}">Purchase History</a>
+				<a href="{% url 'fuel_quote'%}">Fuel Quote</a>	
+			{% endif %}
+			<a href="{% url 'logout' %}">Logout</a>
+			Welcome, {{user.UserCredentials.username}}
 		</nav>
 		
 		<form method="POST" action="/profile_manager" id="profile-form">
