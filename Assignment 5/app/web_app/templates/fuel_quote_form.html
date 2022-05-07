@@ -68,11 +68,7 @@
 					document.getElementById("amount_due").innerHTML += sessionStorage.getItem('total');
 					document.getElementById("suggested_price").innerHTML += sessionStorage.getItem('suggested_price');
 				}		
-		
-			</script>
-	
-			<script>	
-		
+				
 				const getQuoteForm = document.getElementById("get-quote");
 				const getQuoteButton = document.getElementById("get-quote-submit");
 				getQuoteButton.addEventListener("click", (e) => 
@@ -121,27 +117,28 @@
 		
 				const submitQuoteForm = document.getElementById("submit-quote");
 				const submitQuoteButton = document.getElementById("fuel-form-submit");
-				getQuoteButton.addEventListener("click", (e) => 
+				submitQuoteButton.addEventListener("click", (e) => 
 				{
 					e.preventDefault();
-			
-					
-					
-					var serializedData = $(getQuoteForm).serialize();
-					
-					if(!sessionStorage.getItem('gallons_requested') && !sessionStorage.getItem('delivery_date'))
+					if(!sessionStorage.getItem('gallons_requested') && !sessionStorage.getItem('delivery_date') && !sessionStorage.getItem('total') && !sessionStorage.getItem('suggested_price'))
 						alert("Please get a quote.");
 					else
 					{
-						sessionStorage.getItem('gallons_requested',gal);
-						sessionStorage.getItem('delivery_date',dat);
+						gal = sessionStorage.getItem('gallons_requested');
+						dat = sessionStorage.getItem('delivery_date');
 					}
 					
 					if(parseInt(gal) == 0 || new Date() > new Date(dat))	
 						alert("Please input a proper quote.");
 					else
 					{
-						
+						var arr = {"gallons_requested":sessionStorage.getItem('gallons_requested'),
+								   "delivery_date":sessionStorage.getItem('delivery_date'),
+								   "suggested":sessionStorage.getItem('suggested_price'),
+								   "total":sessionStorage.getItem('total')};
+						console.log("STUFF:"+arr);
+						var serializedData = JSON.stringify(arr)
+						console.log(serializedData);
 						$.ajax
 						({
 							type: 'POST',
@@ -150,12 +147,15 @@
 							success: function(response)
 							{
 								console.log("DATA SENT");
+								console.log(response);
 							},
 							error: function(response)
 							{
 								console.log("ERROR");
+								console.log(response);
 							}
 						})
+						
 					}
 				})
 			</script>

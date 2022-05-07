@@ -81,11 +81,6 @@ def pricing_module(gallons_requested, fuel_before, location):
 
 # regular fuel quote form 
 def fuel_quote(request):
-    total = 0
-    suggested = 0
-    gallons = 0
-    date = None
-    
     form = forms.FuelQuote()
     return render(request, 'fuel_quote_form.html',{'form':form})
 
@@ -105,29 +100,29 @@ def get_quote(request):
         data = {"suggested_price": suggested, "total": total}
         return HttpResponse(json.dumps(data), content_type="application/json")
         
-    return JsonResponse({}, status=400)    
+    return HttpResponseRedirect('')  
 
 # sending quote
-@csrf_exempt 
+@csrf_exempt
 def submit_quote(request):
-    total = 0
-    suggested = 0
-    
-    gallons = 0
-    date = None
-    
-    model = models.Fuel_Quote
     user = request.user
-    model.delivery_address = user.clientinformation.address1
-   
     if request.method == "POST":
-        return HttpResponseRedirect('')
-    else:
-        form = forms.FuelQuote()    
-            
-    return render(request, 'fuel_quote_form.html',{'form':form, 'gallons': gallons, 'delivery_date': date, 'total': total, 'suggested': suggested})
-
-
+        new_p = models.Fuel_Quote.objects.create()
+        new_p.username=request.user.username    
+        
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        
+        new_p.gallons_requested = body['gallons_requested']
+        new_p.delivery_address = user.clientinformation.address1 + ", " + user.clientinformation.city + " " + user.clientinformation.state
+        new_p.delivery_date = body['delivery_date']
+        new_p.suggested_price = body['suggested']
+        new_p.total_due = body['total']
+        
+        new_p.save()
+    return HttpResponseRedirect('')  
+        
+    
 # Registration page
 class register(CreateView):
     form_class = forms.UserCreation
