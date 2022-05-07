@@ -7,19 +7,6 @@
 	<title>Fuel Quote</title>
     <link rel="stylesheet" href="{% static 'style/style.css'%}">	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script>
-		function getQuote()
-		{
-			console.log("AH");
-			 $.ajax({
-			 
-				data: $("#get-quote").serialize(),
-			})
-
-			return true;
-		};
-	</script>
-	
 	<div id="bg">
 		<!-- Logged in user-->
 		<div id = "profile_header">
@@ -42,46 +29,136 @@
 		<header>
 			<h2>Fuel Quote Form:</h2>
 		</header>
-		<p id = "warning" style = "color: red;"></p>
-		
 		<h3> Get Quote </h3>
-		<form onsubmit="return getQuote();" method="GET" action="/fuel_quote" id = "get-quote">
-			<body>
-				<div>
-					{{form.as_p}}
-				</div>
-				
-				<div>
-					<input type="submit" value = "Get Quote" id="fuel-quote-get">
-				</div>
-		</form>
-		<form onsubmit="return getQuote();" method="POST" action="/fuel_quote" id = "get-quote">
-		{% csrf_token %}
-				
-				<div>
-					<label>Gallons: </label> {{ gallons }}
-				</div>
-				
-				<div>
-					<label>Delivery Date: </label> {{ delivery_date }}
-				</div>
-				
-				<div>
-					<label>Suggested Price: </label> ${{ suggested }}
-				</div>
-				
-				<div>
-					<label>Delivery Address: </label> {{user.clientinformation.address1}}, {{user.clientinformation.city}}, {{user.clientinformation.state}}
-				</div>
+		<body>
+			<form id = "get-quote">
+					<div>
+						{{form.as_p}}
+					</div>
+					
+					<div>
+						<input type="submit" value = "Get Quote" id="get-quote-submit">
+					</div>
+			</form>
+			<form id = "submit-quote">	
+					<div>
+						<label id="suggested_price">Suggested Price: $</label> 
+					</div>
+					
+					<div>
+						<label>Delivery Address: </label> {{user.clientinformation.address1}}, {{user.clientinformation.city}}, {{user.clientinformation.state}}
+					</div>
 			
-				<div>
-					<label>Total: </label> ${{ total }}
-				</div>
+					<div>
+						<label id = "amount_due">Total: $</label> 
+					</div>
 				
-				<div>
-					<input type="submit" value = "Submit Quote" id="fuel-form-submit">
-				</div>
-			</body>
-		</form>
+					<div>
+						<input type="submit" value = "Submit Quote" id="fuel-form-submit">
+					</div>
+			</form>
+			<script>
+				if(!sessionStorage.getItem('suggested_price') && !sessionStorage.getItem('total'))
+				{
+					document.getElementById("amount_due").innerHTML += "0";
+					document.getElementById("suggested_price").innerHTML += "0";
+				}		
+				else
+				{
+					document.getElementById("amount_due").innerHTML += sessionStorage.getItem('total');
+					document.getElementById("suggested_price").innerHTML += sessionStorage.getItem('suggested_price');
+				}		
+		
+			</script>
+	
+			<script>	
+		
+				const getQuoteForm = document.getElementById("get-quote");
+				const getQuoteButton = document.getElementById("get-quote-submit");
+				getQuoteButton.addEventListener("click", (e) => 
+				{			
+					e.preventDefault();
+					const gal = getQuoteForm.gallons_requested.value;
+					const dat = getQuoteForm.delivery_date.value;
+					
+					var serializedData = $(getQuoteForm).serialize();
+					
+					sessionStorage.setItem('gallons_requested',gal);
+					sessionStorage.setItem('delivery_date',dat);
+					
+					if(parseInt(gal) == 0)
+						alert("Set a value greater than zero.");
+					else if(dat == '' || new Date() > new Date(dat))
+						alert("Set a future date.");
+					else
+					{
+						$.ajax
+						({
+							url: "{% url 'get_quote' %}",
+							credentials: 'include',
+		
+							type: 'GET',
+							data: serializedData,
+							success: function(response)
+							{
+								console.log("DATA SENT");
+								console.log(response);
+								
+								sessionStorage.setItem('suggested_price',response['suggested_price']);
+								sessionStorage.setItem('total',response['total']);
+								
+								document.getElementById("amount_due").innerHTML = "Total: $" + sessionStorage.getItem('total');
+								document.getElementById("suggested_price").innerHTML = "Suggested Price: $" + sessionStorage.getItem('suggested_price');	
+							},
+							error: function(response)
+							{
+								console.log("ERROR");
+								console.log(response);
+							}
+						})
+					}
+				})
+		
+				const submitQuoteForm = document.getElementById("submit-quote");
+				const submitQuoteButton = document.getElementById("fuel-form-submit");
+				getQuoteButton.addEventListener("click", (e) => 
+				{
+					e.preventDefault();
+			
+					
+					
+					var serializedData = $(getQuoteForm).serialize();
+					
+					if(!sessionStorage.getItem('gallons_requested') && !sessionStorage.getItem('delivery_date'))
+						alert("Please get a quote.");
+					else
+					{
+						sessionStorage.getItem('gallons_requested',gal);
+						sessionStorage.getItem('delivery_date',dat);
+					}
+					
+					if(parseInt(gal) == 0 || new Date() > new Date(dat))	
+						alert("Please input a proper quote.");
+					else
+					{
+						
+						$.ajax
+						({
+							type: 'POST',
+							url: "{% url 'submit_quote' %}",
+							data: serializedData,
+							success: function(response)
+							{
+								console.log("DATA SENT");
+							},
+							error: function(response)
+							{
+								console.log("ERROR");
+							}
+						})
+					}
+				})
+			</script>
+		</body>
 	</div>	
 </html>

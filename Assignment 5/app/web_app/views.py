@@ -1,13 +1,15 @@
 from . import forms,models
 from django.shortcuts import render
+import json
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView
 
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
 
 User = get_user_model()
 
@@ -76,47 +78,55 @@ def pricing_module(gallons_requested, fuel_before, location):
     per = location - rate_history + gallon_fact + company_profit
     
     return per*1.5
-    
+
+# regular fuel quote form 
 def fuel_quote(request):
     total = 0
     suggested = 0
-    
     gallons = 0
-    delivery_date = None
+    date = None
     
-    model = models.Fuel_Quote
-    user = request.user
-    model.delivery_address = user.clientinformation.address1
-   
-    if request.method == "POST" and 'gallons_requested' in request.POST:
-        form = forms.FuelQuote(request.POST)
-        if form.is_valid():
-            new_p = models.Fuel_Quote.objects.create()
-            new_p.username=request.user.username    
-            new_p.gallons_requested = form.cleaned_data.get("gallons_requested");
-            new_p.delivery_address = user.clientinformation.address1 + ", " + user.clientinformation.city + " " + user.clientinformation.state
-            new_p.delivery_date = form.cleaned_data.get("delivery_date");
-            new_p.suggested_price = suggested;
-            new_p.total_due = total;
+    form = forms.FuelQuote()
+    return render(request, 'fuel_quote_form.html',{'form':form})
 
-            new_p.save()
-            return HttpResponseRedirect('')
-    elif request.method == "GET" and 'gallons_requested' in request.GET:
+# getting pricing module
+def get_quote(request):
+    if request.method == "GET":
+        print(request.GET.get)
+        user = request.user
         hist = models.Fuel_Quote.objects.filter(username = request.user.username)
         hist_count = hist.count()
+        
         gallons = request.GET['gallons_requested']
         date = request.GET['delivery_date']
         suggested = pricing_module(int(gallons),hist_count, user.clientinformation.state)
         total = int(gallons) * suggested
         
-        new_quote = models.Initial_Quote.objects.create(gallons_requested=gallons,delivery_date=date,suggested_price=suggested,total_due=total)
-        new_quote.save()
+        data = {"suggested_price": suggested, "total": total}
+        return HttpResponse(json.dumps(data), content_type="application/json")
         
-        form = forms.FuelQuote() 
+    return JsonResponse({}, status=400)    
+
+# sending quote
+@csrf_exempt 
+def submit_quote(request):
+    total = 0
+    suggested = 0
+    
+    gallons = 0
+    date = None
+    
+    model = models.Fuel_Quote
+    user = request.user
+    model.delivery_address = user.clientinformation.address1
+   
+    if request.method == "POST":
+        return HttpResponseRedirect('')
     else:
         form = forms.FuelQuote()    
             
-    return render(request, 'fuel_quote_form.html',{'form':form, 'gallons': gallons, 'delivery_date': delivery_date, 'total': total, 'suggested': suggested})
+    return render(request, 'fuel_quote_form.html',{'form':form, 'gallons': gallons, 'delivery_date': date, 'total': total, 'suggested': suggested})
+
 
 # Registration page
 class register(CreateView):
